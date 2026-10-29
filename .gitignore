@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+# Secrets
+.env
+*.key
+# OS / editor clutter
+.DS_Store
+Thumbs.db
+.vscode/
+# Logs
+*.log
+!important.log      # ! means "except this one"
