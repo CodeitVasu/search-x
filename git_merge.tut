@@ -1,0 +1,25 @@
+cd ~/git-practice
+
+# --- Case 1: fast-forward ---
+git switch -c ff-demo
+echo "line 1" > ff.txt && git add ff.txt && git commit -m "Add ff.txt"
+git switch main
+git merge ff-demo                 # says "Fast-forward"
+
+# --- Case 2: three-way merge ---
+git switch -c feature-a
+echo "feature work" > a.txt && git add a.txt && git commit -m "Add a.txt"
+git switch main
+echo "main work" > m.txt && git add m.txt && git commit -m "Add m.txt"
+git merge feature-a               # creates a merge commit (Esc :wq if vim opens)
+git log --oneline --graph --all   # see the diamond shape
+
+# --- Case 3: conflict ---
+git switch -c feature-b
+echo "Hello from feature" > greet.txt && git add greet.txt && git commit -m "Feature greeting"
+git switch main
+echo "Hello from main" > greet.txt && git add greet.txt && git commit -m "Main greeting"
+git merge feature-b               # CONFLICT!
+cat greet.txt                     # look at the markers
+# edit greet.txt to keep one line (e.g. notepad greet.txt), then:
+git add greet.txt && git commit -m "Resolve greeting conflict"
